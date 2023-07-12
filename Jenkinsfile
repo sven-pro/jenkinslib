@@ -5,7 +5,11 @@ def mydemo = new org.devops.demo()
 
 pipeline{
     agent any
-    
+
+    options {
+        skipDefaultCheckout true
+    }
+        
     stages{
         stage("run"){
             steps{
