@@ -14,9 +14,15 @@ pipeline{
         stage("run"){
             steps{
                 script{
+
+                    //user sharedlibrary function
                     id = 1
                     name = mydemo.GetUserNameByID(id)
                     println(name)
+
+                    //use resource config
+                    data = libraryResource 'config/data.json'
+                    println(data)
 
                 }
             }
