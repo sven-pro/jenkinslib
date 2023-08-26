@@ -58,12 +58,8 @@ pipeline{
 				    pkgPath = "target"
 
 				    POM = readMavenPom file: 'pom.xml'
-                    //env.groupid = "${POM.getGroupId()}"
-                    //env.artifactID = "${POM.getArtifactId()}"
-                    //env.artifact_version = "${POM.getVersion()}"
                     env.packing = "${POM.getPackaging()}"
-					pkgName = "${appName}-${appVersion}.${env.packing}"
-                                    
+					pkgName = "${appName}-${appVersion}.${env.packing}"         
                     art.PushNexusArtifact(repoID,targetDir,pkgPath,pkgName)	               
 				}
 			}
