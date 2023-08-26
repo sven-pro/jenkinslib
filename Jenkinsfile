@@ -3,7 +3,7 @@
 def mydemo = new org.devops.demo() 
 def myTool = new org.devops.Tools()
 def sonar  = new org.devops.Sonar()
-def art    = new org.devops.artifact()
+def art    = new org.devops.Artifact()
 def build  = new org.devops.Build()
 
 pipeline{
