@@ -48,16 +48,22 @@ pipeline{
 		stage("PushArtifact"){
 			steps{
 				script{
-				    //手动指定仓库ID，把代码放到通用型仓库devops
-				    repoID = "devops"
-				    targetDir = "devops3/${JOB_NAME}"
+				    //手动指定仓库ID，把代码放到通用型仓库devops, 假设JOB_NAME值是：devops1-maven-java11-project2-service_CI
+				    repoID = "devops"                 
+					buName = "${JOB_NAME}".split('-')[0]  //devops1
+					appName = "${JOB_NAME}".split('_')[0] //devops1-maven-java11-project2-service
+					appVersion = "${env.branchName}"      //制品名称中的版本信息最好是branchName+commitID
+				    targetDir = "${buName}/${appName}/${appVersion}" //Nexus3上的这个targetDir目录结构根据规则定义
+	                //这里达到的效果是devops1/devops1-maven-java11-project2-service/release-1.1.1
 				    pkgPath = "target"
+
 				    POM = readMavenPom file: 'pom.xml'
-                    env.groupid = "${POM.getGroupId()}"
-                    env.artifactID = "${POM.getArtifactId()}"
-                    env.artifact_version = "${POM.getVersion()}"
+                    //env.groupid = "${POM.getGroupId()}"
+                    //env.artifactID = "${POM.getArtifactId()}"
+                    //env.artifact_version = "${POM.getVersion()}"
                     env.packing = "${POM.getPackaging()}"
-                    pkgName = "${env.artifactID }-${env.artifact_version}.${env.packing}"                   
+					pkgName = "${appName}-${appVersion}.${env.packing}"
+                                    
                     art.PushNexusArtifact(repoID,targetDir,pkgPath,pkgName)	               
 				}
 			}
