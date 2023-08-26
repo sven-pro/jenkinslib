@@ -9,7 +9,7 @@ def Build(){
             sh "yarn build"
             break
         case "maven":
-            sh "/data/devops/tools/apache-maven-3.9.3/bin/mvn clean package -DskipTests"
+            sh "mvn clean package -DskipTests"
             break
         case "gradle":
             sh "gradle clean build -x test"
@@ -30,7 +30,7 @@ def UnitTest(){
     if ("${JOB_NAME}".endsWith("-service")) {
         switch("${env.buildTools}") {
             case "maven":
-                sh "/data/devops/tools/apache-maven-3.9.3/bin/mvn test"
+                sh "/mvn test"
                 break
             case "gradle":
                 sh "gradle test"
