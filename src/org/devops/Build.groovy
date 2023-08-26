@@ -1,5 +1,4 @@
 packge.org.devops
-
 //Build, 使用switch语句把使用构建工具与指令分组对应起来，执行完任务一种情况后都要退出循环
 def Build(){
     switch("${env.buildTools}") {
@@ -26,7 +25,6 @@ def Build(){
         env.skipUnitTest = 'false'						
     }
 }
-
 //test 如果项目名以-service结尾则执行UnitTest方法
 def UnitTest(){
     if ("${JOB_NAME}".endsWith("-service")) {
@@ -42,6 +40,5 @@ def UnitTest(){
                 break						   							
         }  
     }    
-    
 }
 

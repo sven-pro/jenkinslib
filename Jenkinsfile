@@ -4,6 +4,7 @@ def mydemo = new org.devops.demo()
 def myTool = new org.devops.Tools()
 def sonar  = new org.devops.Sonar()
 def art    = new org.devops.artifact()
+def build  = new org.devops.Build()
 
 pipeline{
 	agent { label 'build01'}
@@ -22,14 +23,18 @@ pipeline{
 		stage("Build"){
 			steps {
 				script{
-					sh "mvn clean package -DskipTests"
+					build.Build()
 				}
 			}
 		}
 		stage("Test"){
+			when {
+			  environment name: 'skipUnitTest', value: 'false'
+			}			
 			steps{
 				script{
-					sh "mvn test"
+					//调用共享库中的test方法
+					build.UnitTest()
 				}
 			}
 		}
