@@ -58,7 +58,7 @@ pipeline{
                     env.artifact_version = "${POM.getVersion()}"
                     env.packing = "${POM.getPackaging()}"
                     pkgName = "${env.artifactID }-${env.artifact_version}.${env.packing}"                   
-                    PushNexusArtifact(repoID,targetDir,pkgPath,pkgName)	               
+                    art.PushNexusArtifact(repoID,targetDir,pkgPath,pkgName)	               
 				}
 			}
 		}
