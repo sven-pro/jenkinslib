@@ -49,11 +49,12 @@ pipeline{
 			steps{
 				script{
 				    //手动指定仓库ID，把代码放到通用型仓库devops, 假设JOB_NAME值是：devops1-maven-java11-project2-service_CI
+					env.commitID = myTool.GetCommitID()
 				    repoID = "devops"                 
 					buName = "${JOB_NAME}".split('-')[0]  //devops1
-					appName = "${JOB_NAME}".split('_')[0] //devops1-maven-java11-project2-service
-					appVersion = "${env.branchName}"      //制品名称中的版本信息最好是branchName+commitID
-				    targetDir = "${buName}/${appName}/${appVersion}" //Nexus3上的这个targetDir目录结构根据规则定义
+					appName = "${JOB_NAME}".split('_')[0]                  //devops1-maven-java11-project2-service
+					appVersion = "${env.branchName}-${env.commitID[0..7]}" //版本信息是branchName+commitID的前8位
+				    targetDir = "${buName}/${appName}/${appVersion}"       //Nexus3上的这个targetDir目录结构根据规则定义
 				    pkgPath = "target"
 
 				    POM = readMavenPom file: 'pom.xml'

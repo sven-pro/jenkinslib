@@ -9,3 +9,9 @@ def GetCode(branchName,srcUrl){
                     credentialsId: '9d02cccf-5f45-46d6-b4e5-81ff97809c12', 
                     url: srcUrl]]])
 }
+
+//Get commitID
+def GetCommitID(){
+    ID = sh returnStdout: true, script: 'git rev-parse HEAD'
+    return ID - "\n"
+}
